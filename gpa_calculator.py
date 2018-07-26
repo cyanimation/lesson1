@@ -14,41 +14,52 @@ Write a program that does the following:
     calculate the GPA: total_points / total_credits
     print your cumulative GPA
 """
+import time
+classList = []
+while True:
+    className = input('\nEnter the name of the class or enter quit to quit: ')
+    if (className == "quit" or className == "Quit"):
+        print("\n\n")
+        break
+    else:
+        while True:
+            try:
+                print("\nEnter your grade in points between 0 and 4 for {}: ".format(className))
+                classGrade = float(input())
+                if (classGrade >= 0 and classGrade <= 4):
+                    break
+                else:
+                    print("Enter  a number between 0 and 4 for real this time")
+            except:
+                print ("Please try again with an actual digit number")
+
+        while True:
+            try:
+                classCredits = float(input('\nEnter the amount of credits for {}: '.format(className)))
+                break
+            except:
+                print ("Oh why did college ever release you...")
+
+        classList.append([className,classGrade,classCredits])
+
+        print("With the following classes:")
+
+
+totalPoints = 0
+totalCredits = 0
+for i in classList:
+    print("In {} class you earned {} points and it had {} credits".format(*i) )
+    totalPoints += i[1]*i[2]
+    totalCredits += i[2]
+
+
+print("\n\nNow calculating......beep....boop....yo mamma...old pizza\n\n")
+time.sleep(2)
+print("Done calcumalating:")
+time.sleep(.5)
+
+GPA = (totalPoints/(totalCredits*4))*4
+print("Your total GPA is " + str(round(GPA,2)))
 
 
 
-# the points per letter grade
-a = 4
-a_minus = 3.7
-
-# the credits for each class (you could make them more specific if you want)
-credits = 3
-
-# the number of classes we are using
-classes_num = 1
-
-# the letter grade for the class
-biology = input("what grade did you get in biology (a, a-, b+, etc)?")
-
-# keep track of the total number of points from every class operation
-total_points = 0
-
-# declaring this variable outside of the if loop so that it can be used later
-# if it were only inside the if loop then what happens if biology != 'a'? We 
-# wouldn't be able to use it.
-biology_points = 0
-if (biology == 'a'):
-    # store the result of this operation because we are going to use it twice
-    points = a * credits
-    biology = points
-    # there is a += operator that is the same as: total_points = total_points + points
-    # its a shortcut
-    total_points += points
-else:
-    print ("I didn't understand that")
-
-# calculate the total credits
-total_credits = credits * classes_num
-
-# print out the GPA
-print ("your GPA is: " + str(total_points / total_credits))
